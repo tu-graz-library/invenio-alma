@@ -22,6 +22,16 @@ class AlmaServiceConfig:
         "and @tag='856']//subfield[@code='u']"
     )
 
+    controlfields = [
+        "001",
+        "003",
+        "005",
+        "006",
+        "007",
+        "008",
+        "009",
+    ]
+
     @classmethod
     def build(cls, app):
         """Update configuration from flask app."""

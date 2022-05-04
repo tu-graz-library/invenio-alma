@@ -11,6 +11,7 @@ include *.rst
 include *.sh
 include *.txt
 prune docs/_build
+recursive-include invenio_alma *.json
 recursive-include docs *.bat
 recursive-include docs *.py
 recursive-include docs *.rst
