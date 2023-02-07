@@ -34,8 +34,8 @@ def test_alma_sru_urls():
     domain = ""
     institution_code = ""
     search_value = ""
-    config = AlmaSRUConfig(search_key, domain, institution_code)
-    urls = AlmaSRUUrls(config)
+    config = AlmaSRUConfig(domain, institution_code)
+    urls = AlmaSRUUrls(config, search_key)
 
     expected_query = f"query=alma.{search_key}={search_value}"
     expected_parameters = f"version=1.2&operation=searchRetrieve&{expected_query}"

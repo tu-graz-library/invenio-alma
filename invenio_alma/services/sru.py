@@ -16,9 +16,11 @@ from .config import AlmaSRUConfig
 class AlmaSRUUrls:
     """Alma SRU urls."""
 
-    def __init__(self, config: AlmaSRUConfig):
+    def __init__(self, config: AlmaSRUConfig, search_key: str):
         """Constructor for Alma SRU urls."""
         self.config = config
+
+        self.search_key = search_key
         self.search_value = ""
 
     @property
@@ -29,7 +31,7 @@ class AlmaSRUUrls:
     @property
     def query(self) -> str:
         """Query."""
-        return f"query=alma.{self.config.search_key}={self.search_value}"
+        return f"query=alma.{self.search_key}={self.search_value}"
 
     @property
     def parameters(self) -> str:
@@ -74,10 +76,8 @@ class AlmaSRUService:
         service: AlmaSRU = None,
     ):
         """Build sru service."""
-        config = (
-            config if config else AlmaSRUConfig(search_key, domain, institution_code)
-        )
-        urls = urls if urls else AlmaSRUUrls(config)
+        config = config if config else AlmaSRUConfig(domain, institution_code)
+        urls = urls if urls else AlmaSRUUrls(config, search_key)
         service = service if service else AlmaSRU()
         return cls(config, urls, service)
 

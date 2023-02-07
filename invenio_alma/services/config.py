@@ -22,6 +22,5 @@ class AlmaRESTConfig:
 class AlmaSRUConfig:
     """Alma sru service config."""
 
-    search_key: str = ""
     domain: str = ""
     institution_code: str = ""

@@ -63,7 +63,7 @@ class AlmaResource(Resource):
         record_id = resource_requestctx.view_args["record_id"]
         type_id = resource_requestctx.view_args["type"]
 
-        self.service.config.search_key = self.config.record_id_search_key[type_id]
+        self.service.urls.search_key = self.config.record_id_search_key[type_id]
         try:
             metadata = Marc21Metadata(metadata=self.service.get_record(record_id))
             item = metadata.json
