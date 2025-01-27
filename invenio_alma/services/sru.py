@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2022-2024 Graz University of Technology.
+# Copyright (C) 2022-2025 Graz University of Technology.
 #
 # invenio-alma is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -67,8 +67,8 @@ class AlmaSRUService:
     def __init__(
         self,
         config: AlmaSRUConfig,
-        urls: AlmaSRUUrls = None,
-        service: AlmaSRU = None,
+        urls: AlmaSRUUrls | None = None,
+        service: AlmaSRU | None = None,
     ) -> None:
         """Create object AlmaSRUService."""
         self.config = config
