@@ -7,6 +7,7 @@
 
 """Command line interface to interact with the Alma-Connector module."""
 
+from dataclasses import dataclass
 from time import sleep
 
 from click import BOOL, STRING, echo, group, option, secho
@@ -19,10 +20,21 @@ from .click_param_type import CSV, JSON
 from .decorators import build_identity, build_service
 from .proxies import current_alma
 from .services import AlmaRESTService, AlmaSRUService
-from .types import Color
 
 MAX_RETRY_COUNT = 3
 """There could be problems with opensearch connections. This is the retry counter."""
+
+
+@dataclass(frozen=True)
+class Color:
+    """The class is for the output color management."""
+
+    neutral = "white"
+    error = "red"
+    warning = "yellow"
+    abort = "magenta"
+    success = "green"
+    alternate = ("blue", "cyan")
 
 
 @group()
@@ -147,7 +159,6 @@ def cli_create_alma_record(
     workflow: str,
 ) -> None:
     """Create alma record."""
-
     create_funcs = current_app.config.get("ALMA_ALMA_RECORDS_CREATE_FUNCS")
 
     if workflow is None:
@@ -178,7 +189,7 @@ def show_update_workflows() -> None:
 @update.command("repository-record")
 @option(
     "--metadata",
-    type=JSON,
+    type=JSON(),
     help="dict with marc-id, alma identifier",
 )
 @option("--marc-id", type=STRING, required=True)

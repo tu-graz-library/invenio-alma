@@ -43,7 +43,7 @@ class CSV(ParamType):
 
     def convert(
         self,
-        value: Any,
+        value: Any,  # noqa: ANN401
         param: Parameter | None,  # noqa: ARG002
         ctx: Context | None,  # noqa: ARG002
     ) -> DictReader:
@@ -86,11 +86,11 @@ class JSON(ParamType):
 
     def convert(
         self,
-        value: Any,
+        value: Any,  # noqa: ANN401
         param: Parameter | None,  # noqa: ARG002
         ctx: Context | None,  # noqa: ARG002
-    ) -> Any:
-        """The method converts the json-file to the dictionary representation."""
+    ) -> Any:  # noqa: ANN401
+        """Convert the json-file to the dictionary representation."""
         try:
             if Path(value).is_file():
                 with Path(value).open("r", encoding="utf8") as file_pointer:
