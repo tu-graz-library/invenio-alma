@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2021-2024 Graz University of Technology.
+# Copyright (C) 2021-2025 Graz University of Technology.
 #
 # invenio-alma is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -36,7 +36,7 @@ ALMA_ALMA_RECORDS_CREATE_FUNC = None
 """The function to create record in alma."""
 
 ALMA_REPOSITORY_RECORDS_UPDATE_AGGREGATORS = []
-"""List of aggregators with following signature: aggregator() -> list[tuple[marc_id, alma_id]]."""  # noqa: E501
+"""List of aggregators with following signature: aggregator() -> list[tuple[marc_id, alma_id]]."""
 
 ALMA_REPOSITORY_RECORDS_UPDATE_FUNC = None
 """This is a callable to make the update process dependend on the workflow."""

@@ -53,7 +53,8 @@ def build_service[T](func: Callable[..., T]) -> Callable:
             config = AlmaSRUConfig(search_key, domain, institution_code)
             alma_service = AlmaSRUService(config)
         else:
-            raise RuntimeError("either rest nor sru configuration given")
+            msg = "either rest nor sru configuration given"
+            raise RuntimeError(msg)
 
         kwargs["alma_service"] = alma_service
 
