@@ -14,21 +14,19 @@ fixtures are available.
 from collections.abc import Callable
 
 import pytest
-from flask import Flask
-
-from invenio_alma import InvenioAlma
+from _pytest.fixtures import FixtureFunctionMarker
+from invenio_app.factory import create_api as _create_api
 
 
 @pytest.fixture(scope="module")
-def create_app(instance_path: str) -> Callable:
+def app_config(app_config: FixtureFunctionMarker) -> FixtureFunctionMarker:
+    """Application config."""
+    app_config["ALMA_API_KEY"] = "test-token"
+    app_config["ALMA_API_HOST"] = "test-host"
+    return app_config
+
+
+@pytest.fixture(scope="module")
+def create_app(instance_path: FixtureFunctionMarker) -> Callable:
     """Application factory fixture."""
-
-    def factory(**config: dict) -> InvenioAlma:
-        app = Flask("testapp", instance_path=instance_path)
-        app.config.update(**config)
-        app.config["ALMA_API_KEY"] = "test-token"
-        app.config["ALMA_API_HOST"] = "test-host"
-        InvenioAlma(app)
-        return app
-
-    return factory
+    return _create_api
