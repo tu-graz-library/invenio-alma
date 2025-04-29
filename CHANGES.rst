@@ -7,6 +7,15 @@
 Changes
 =======
 
+Version v0.13.0 (release 2025-04-29)
+
+- chore: maintenance
+- global: add jobs
+- setup: add python3.13 support
+- chore: fix ruff errors
+- refactor: cli
+
+
 Version v0.12.0 (release 2024-10-28)
 
 - global: remove dependency to marc21
