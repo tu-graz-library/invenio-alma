@@ -58,6 +58,8 @@ def create_alma_records(workflow: str | None = None) -> None:
 @shared_task(ignore_result=True)
 def update_repository_records(workflow: str | None = None) -> None:
     """Update records within the repository from alma records."""
+    current_app.logger.info("start updating records in repository from alma")
+
     aggregators = current_app.config["ALMA_REPOSITORY_RECORDS_UPDATE_AGGREGATORS"]
     update_funcs = current_app.config["ALMA_REPOSITORY_RECORDS_UPDATE_FUNCS"]
 
@@ -91,6 +93,8 @@ def update_repository_records(workflow: str | None = None) -> None:
     for entry in aggregator():
         try:
             update_func(system_identity, entry.pid, entry.cms_id, alma_service)
+            msg = "record %s has been updated successfully."
+            current_app.logger.info(msg, entry.pid)
         except (RuntimeError, RuntimeWarning) as error:
             msg = "ERROR: updating records within the repository."
             msg += " (marc21_id: %s, cms_id: %s, error: %s)"
