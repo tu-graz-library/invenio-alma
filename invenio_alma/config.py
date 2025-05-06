@@ -26,19 +26,19 @@ ALMA_API_HOST = ""
 This value should be set on a place which is not under DVCS control.
 """
 
-ALMA_REPOSITORY_RECORDS_IMPORT_FUNC = None
+ALMA_REPOSITORY_RECORDS_IMPORT_FUNCS = {}
 """Function to import a record from alma into the repository."""
 
-ALMA_ALMA_RECORDS_CREATE_AGGREGATORS = []
+ALMA_ALMA_RECORDS_CREATE_AGGREGATORS = {}
 """List of aggregators with following signature: aggregator() -> list[marc_id]."""
 
-ALMA_ALMA_RECORDS_CREATE_FUNC = None
+ALMA_ALMA_RECORDS_CREATE_FUNCS = {}
 """The function to create record in alma."""
 
-ALMA_REPOSITORY_RECORDS_UPDATE_AGGREGATORS = []
+ALMA_REPOSITORY_RECORDS_UPDATE_AGGREGATORS = {}
 """List of aggregators with following signature: aggregator() -> list[tuple[marc_id, alma_id]]."""
 
-ALMA_REPOSITORY_RECORDS_UPDATE_FUNC = None
+ALMA_REPOSITORY_RECORDS_UPDATE_FUNCS = {}
 """This is a callable to make the update process dependend on the workflow."""
 
 ALMA_USER_EMAIL = ""
