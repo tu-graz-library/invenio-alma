@@ -7,6 +7,12 @@
 Changes
 =======
 
+Version v0.13.1 (release 2025-05-07)
+
+- jobs: add logger info
+- fix: update default configuration variables
+
+
 Version v0.13.0 (release 2025-04-29)
 
 - chore: maintenance
