@@ -7,6 +7,11 @@
 Changes
 =======
 
+Version v0.13.2 (release 2025-06-10)
+
+- fix(jobs): add customization of workflow
+
+
 Version v0.13.1 (release 2025-05-07)
 
 - jobs: add logger info
