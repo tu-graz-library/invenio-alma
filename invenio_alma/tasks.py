@@ -17,6 +17,8 @@ from .proxies import current_alma
 @shared_task(ignore_result=True)
 def create_alma_records(workflow: str | None = None) -> None:
     """Create records within alma from repository records."""
+    current_app.logger.info("start creating records in alma")
+
     aggregators = current_app.config["ALMA_ALMA_RECORDS_CREATE_AGGREGATORS"]
     create_funcs = current_app.config["ALMA_ALMA_RECORDS_CREATE_FUNCS"]
 
@@ -50,6 +52,8 @@ def create_alma_records(workflow: str | None = None) -> None:
     for entry in aggregator():
         try:
             create_func(system_identity, entry.pid, entry.cms_id, alma_service)
+            msg = "record %s has been updated successfully."
+            current_app.logger.info(msg, entry.pid)
         except (RuntimeError, RuntimeWarning) as error:
             msg = "ERROR: creating record in alma. (marcid: %s, cms_id: %s, error: %s)"
             current_app.logger.error(msg, entry.pid, entry.cms_id, error)
