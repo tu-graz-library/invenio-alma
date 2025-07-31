@@ -17,6 +17,12 @@ from .tasks import create_alma_records, update_repository_records
 class AlmaPredefinedArgsSchema(PredefinedArgsSchema):
     """Alma predefined args schema."""
 
+    job_arg_schema = String(
+        metadata={"type": "hidden"},
+        dump_default="AlmaPredefinedArgsSchema",
+        load_default="AlmaPredefinedArgsSchema",
+    )
+
     workflow = String(
         metadata={
             "description": "choose workflow to run the task",
