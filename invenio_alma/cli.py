@@ -199,7 +199,6 @@ def show_update_workflows() -> None:
     type=JSON(),
     help="dict with marc-id, alma identifier",
 )
-@option("--marc-id", type=STRING, required=True)
 @option("--user-email", type=STRING, default="alma@tugraz.at")
 @option("--keep-access-as-is", type=BOOL, is_flag=True, default=False)
 @option(
