@@ -7,6 +7,12 @@
 Changes
 =======
 
+Version v0.13.5 (released 2025-10-21)
+
+- fix(cli): remove not used option
+- chore(types): improve type handling
+- build(setup): add mypy configuration
+
 Version v0.13.4 (released 2025-07-31)
 
 - fix(jobs): custom args
