@@ -7,6 +7,10 @@
 
 """Invenio module to connect InvenioRDM to Alma."""
 
+from collections.abc import Callable
+
+from invenio_records_resources.services.records.results import RecordItem
+
 ALMA_API_KEY = ""
 """Default value for the Alma API key.
 
@@ -20,37 +24,43 @@ existing record, but it is possible to create a totally new record.
 This value should be set on a place which is not under DVCS control.
 """
 
-ALMA_API_HOST = ""
+ALMA_API_HOST: str = ""
 """Default value for the Alma API host.
 
 This value should be set on a place which is not under DVCS control.
 """
 
-ALMA_REPOSITORY_RECORDS_IMPORT_FUNCS = {}
+ALMA_REPOSITORY_RECORDS_IMPORT_FUNCS: dict[str, Callable[..., RecordItem]] = {}
 """Function to import a record from alma into the repository."""
 
-ALMA_ALMA_RECORDS_CREATE_AGGREGATORS = {}
+ALMA_ALMA_RECORDS_CREATE_AGGREGATORS: dict[
+    str,
+    Callable[..., list[tuple[str, str]]],
+] = {}
 """List of aggregators with following signature: aggregator() -> list[marc_id]."""
 
-ALMA_ALMA_RECORDS_CREATE_FUNCS = {}
+ALMA_ALMA_RECORDS_CREATE_FUNCS: dict[str, Callable[..., RecordItem]] = {}
 """The function to create record in alma."""
 
-ALMA_REPOSITORY_RECORDS_UPDATE_AGGREGATORS = {}
+ALMA_REPOSITORY_RECORDS_UPDATE_AGGREGATORS: dict[
+    str,
+    Callable[..., list[tuple[str, str]]],
+] = {}
 """List of aggregators with following signature: aggregator() -> list[tuple[marc_id, alma_id]]."""
 
-ALMA_REPOSITORY_RECORDS_UPDATE_FUNCS = {}
+ALMA_REPOSITORY_RECORDS_UPDATE_FUNCS: dict[str, Callable[..., RecordItem]] = {}
 """This is a callable to make the update process dependend on the workflow."""
 
-ALMA_USER_EMAIL = ""
+ALMA_USER_EMAIL: str = ""
 """This is the email adress of the alma user in the repository."""
 
-ALMA_ERROR_MAIL_SENDER = ""
+ALMA_ERROR_MAIL_SENDER: str = ""
 """This is the error mail sender."""
 
-ALMA_ERROR_MAIL_RECIPIENTS = []
+ALMA_ERROR_MAIL_RECIPIENTS: list[str] = []
 """This is a list of recipients who should get the error message."""
 
-ALMA_CELERY_BEAT_SCHEDULE = {}
+ALMA_CELERY_BEAT_SCHEDULE: dict = {}
 """Celery beat schedule for the theses import.
 
 This should be set on the InvenioRDM instance invenio.cfg file.

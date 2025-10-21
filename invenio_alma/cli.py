@@ -7,8 +7,10 @@
 
 """Command line interface to interact with the Alma-Connector module."""
 
+from csv import DictReader
 from dataclasses import dataclass
 from time import sleep
+from typing import cast
 
 from click import BOOL, STRING, echo, group, option, secho
 from click_option_group import optgroup
@@ -37,6 +39,11 @@ class Color:
     alternate = ("blue", "cyan")
 
 
+def get_config[T](key: str, _: type[T]) -> T:
+    """Get casted config from current_app."""
+    return cast(T, current_app.config.get(key))
+
+
 @group()
 @with_appcontext
 def alma() -> None:
@@ -51,7 +58,7 @@ def import_into_repo() -> None:
 @import_into_repo.command("workflows")
 def show_import_workflows() -> None:
     """Show registered update workflow types."""
-    import_funcs = current_app.config.get("ALMA_REPOSITORY_RECORDS_IMPORT_FUNCS")
+    import_funcs = get_config("ALMA_REPOSITORY_RECORDS_IMPORT_FUNCS", dict)
 
     for key in import_funcs:
         echo(f"workflow type: {key} is registered")
@@ -83,12 +90,12 @@ def show_import_workflows() -> None:
 def import_using_sru(
     workflow: str,
     metadata: dict,
-    csv_file: CSV,
+    csv_file: DictReader,
     identity: Identity,
     alma_service: AlmaSRUService,
 ) -> None:
     """Search on the SRU service of alma."""
-    import_funcs = current_app.config.get("ALMA_REPOSITORY_RECORDS_IMPORT_FUNCS")
+    import_funcs = get_config("ALMA_REPOSITORY_RECORDS_IMPORT_FUNCS", dict)
 
     if workflow is None:
         workflow = list(import_funcs.keys()).pop()
@@ -127,7 +134,7 @@ def create() -> None:
 @create.command("workflows")
 def show_create_workflows() -> None:
     """Show registered update workflow types."""
-    create_funcs = current_app.config.get("ALMA_ALMA_RECORDS_CREATE_FUNCS")
+    create_funcs = get_config("ALMA_ALMA_RECORDS_CREATE_FUNCS", dict)
 
     for key in create_funcs:
         echo(f"workflow type: {key} is registered")
@@ -159,7 +166,7 @@ def cli_create_alma_record(
     workflow: str,
 ) -> None:
     """Create alma record."""
-    create_funcs = current_app.config.get("ALMA_ALMA_RECORDS_CREATE_FUNCS")
+    create_funcs = get_config("ALMA_ALMA_RECORDS_CREATE_FUNCS", dict)
 
     if workflow is None:
         workflow = list(create_funcs.keys()).pop()
@@ -180,7 +187,7 @@ def update() -> None:
 @update.command("workflows")
 def show_update_workflows() -> None:
     """Show registered update workflow types."""
-    update_funcs = current_app.config.get("ALMA_REPOSITORY_RECORDS_UPDATE_FUNCS")
+    update_funcs = get_config("ALMA_REPOSITORY_RECORDS_UPDATE_FUNCS", dict)
 
     for key in update_funcs:
         echo(f"workflow type: {key} is registered")
@@ -220,7 +227,7 @@ def cli_update_repository_record(
     keep_access_as_is: bool,
 ) -> None:
     """Update Repository record."""
-    update_funcs = current_app.config.get("ALMA_REPOSITORY_RECORDS_UPDATE_FUNCS")
+    update_funcs = get_config("ALMA_REPOSITORY_RECORDS_UPDATE_FUNCS", dict)
 
     if workflow is None:
         workflow = list(update_funcs.keys()).pop()
@@ -245,7 +252,7 @@ def cli_update_repository_record(
     required=True,
     help="two columns: mms_id and new_url",
 )
-def update_url_in_alma(csv_file: CSV) -> None:
+def update_url_in_alma(csv_file: DictReader) -> None:
     """Update url in remote repository records.
 
     :params csv_file (file) with two columns mms_id and new_url

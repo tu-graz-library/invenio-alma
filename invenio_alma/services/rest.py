@@ -10,9 +10,10 @@
 from http import HTTPStatus
 from xml.etree.ElementTree import Element, tostring
 
-from requests import ReadTimeout, post, put
+from requests.api import post, put
+from requests.exceptions import ReadTimeout
 
-from .base import AlmaAPIBase
+from .base import AlmaAPIBase, AlmaService
 from .config import AlmaRESTConfig
 from .errors import AlmaRESTError
 from .utils import jpath_to_xpath
@@ -106,7 +107,7 @@ class AlmaREST(AlmaAPIBase):
         return response.text
 
 
-class AlmaRESTService:
+class AlmaRESTService(AlmaService):
     """Alma service class."""
 
     def __init__(
@@ -154,7 +155,7 @@ class AlmaRESTService:
         """Update the record on alma side."""
         data = tostring(record)
         url_put = self.urls.url_put(mms_id)
-        self.service.put(url_put, data)
+        return self.service.put(url_put, data)
 
     def create_alma_record(self, record: Element) -> str:
         """Create alma record."""
@@ -175,7 +176,7 @@ class AlmaRESTService:
         record = self.get_record(mms_id)
         field = self.get_field(record, field_json_path)  # reference
         self.replace_field(field, new_subfield_value)  # in-place
-        self.update_alma_record(mms_id, record)
+        return self.update_alma_record(mms_id, record)
 
     def create_record(self, record: Element) -> str:
         """Create record in Alma."""

@@ -12,10 +12,12 @@ from collections.abc import Callable
 from functools import wraps
 from typing import TypedDict, Unpack
 
+from flask_principal import Identity
 from invenio_access.utils import get_identity
-from invenio_accounts import current_accounts
+from invenio_accounts.proxies import current_accounts
 
 from .services import AlmaRESTService, AlmaSRUService
+from .services.base import AlmaService
 from .services.config import AlmaRESTConfig, AlmaSRUConfig
 
 
@@ -33,6 +35,8 @@ class KwargsDict(TypedDict, total=False):
     filename: str
     access: str
     csv_file: dict
+    alma_service: AlmaService
+    identity: Identity
 
 
 def build_service[T](func: Callable[..., T]) -> Callable:
@@ -44,19 +48,17 @@ def build_service[T](func: Callable[..., T]) -> Callable:
             api_key = kwargs.pop("api_key")
             api_host = kwargs.pop("api_host")
 
-            config = AlmaRESTConfig(api_key, api_host)
-            alma_service = AlmaRESTService(config=config)
+            config_rest = AlmaRESTConfig(api_key, api_host)
+            kwargs["alma_service"] = AlmaRESTService(config=config_rest)
         elif "search_key" in kwargs and "domain" in kwargs:
-            search_key = kwargs.pop("search_key")
-            domain = kwargs.pop("domain")
-            institution_code = kwargs.pop("institution_code")
-            config = AlmaSRUConfig(search_key, domain, institution_code)
-            alma_service = AlmaSRUService(config)
+            search_key: str = kwargs.pop("search_key")
+            domain: str = kwargs.pop("domain")
+            institution_code: str = kwargs.pop("institution_code")
+            config_sru = AlmaSRUConfig(search_key, domain, institution_code)
+            kwargs["alma_service"] = AlmaSRUService(config=config_sru)
         else:
             msg = "either rest nor sru configuration given"
             raise RuntimeError(msg)
-
-        kwargs["alma_service"] = alma_service
 
         return func(**kwargs)
 
