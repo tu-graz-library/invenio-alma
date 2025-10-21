@@ -30,3 +30,12 @@ ignore = [
   "FBT001",
   "SLF001",
 ]
+
+[tool.mypy]
+extra_checks = true
+strict = true
+strict_bytes = true
+strict_equality = true
+follow_untyped_imports = true
+disallow_any_generics = false
+python_executable = ".venv/bin/python"
