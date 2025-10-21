@@ -13,7 +13,7 @@ from __future__ import annotations
 
 from xml.etree.ElementTree import Element
 
-from .base import AlmaAPIBase
+from .base import AlmaAPIBase, AlmaService
 from .config import AlmaSRUConfig
 
 
@@ -61,7 +61,7 @@ class AlmaSRU(AlmaAPIBase):
         super().__init__(".//srw:recordData/slim:record", namespaces)
 
 
-class AlmaSRUService:
+class AlmaSRUService(AlmaService):
     """AlmaSRUService."""
 
     def __init__(

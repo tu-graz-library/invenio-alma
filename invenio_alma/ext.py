@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2021-2024 Graz University of Technology.
+# Copyright (C) 2021-2025 Graz University of Technology.
 #
 # invenio-alma is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Invenio module to connect InvenioRDM to Alma."""
 
-from __future__ import annotations
-
 from dataclasses import dataclass
+from typing import cast
 
 from flask import Blueprint, Flask, current_app
 
@@ -31,11 +30,11 @@ class AlmaResourceMock:
 class InvenioAlma:
     """invenio-alma extension."""
 
-    def __init__(self, app: Flask = None) -> None:
-        """Extension initialization."""
-        self._alma_rest_service = None
-        self._alma_resource = None
+    _alma_rest_service: AlmaRESTService | None = None
+    _alma_resource: AlmaResource | None = None
 
+    def __init__(self, app: Flask | None = None) -> None:
+        """Extension initialization."""
         if app:
             self.init_app(app)
 
@@ -93,8 +92,8 @@ class InvenioAlma:
     def init_resources(self, app: Flask) -> None:
         """Initialize resources."""
         search_key = "local_control_field_009"  # ac_number
-        domain = app.config.get("ALMA_SRU_DOMAIN")
-        institution_code = app.config.get("ALMA_SRU_INSTITUTION_CODE")
+        domain = cast(str, app.config.get("ALMA_SRU_DOMAIN"))
+        institution_code = cast(str, app.config.get("ALMA_SRU_INSTITUTION_CODE"))
         config = AlmaSRUConfig(search_key, domain, institution_code)
 
         self._alma_resource = AlmaResource(

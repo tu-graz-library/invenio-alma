@@ -6,6 +6,8 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Click param types."""
+
+
 import sys
 from csv import DictReader
 from io import TextIOWrapper
@@ -30,7 +32,7 @@ class CSV(ParamType):
     @property
     def headers(self) -> list[str]:
         """Headers."""
-        return self.header.split(",")
+        return self.header.split(",") if self.header else []
 
     def is_header_as_expected(self, csv_file: TextIOWrapper) -> bool:
         """Check if the header is as expected."""

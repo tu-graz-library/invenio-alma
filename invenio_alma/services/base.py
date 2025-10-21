@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2022-2024 Graz University of Technology.
+# Copyright (C) 2022-2025 Graz University of Technology.
 #
 # invenio-alma is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -8,20 +8,24 @@
 
 """Alma Base Service."""
 
-from __future__ import annotations
 
 from http import HTTPStatus
 from xml.etree.ElementTree import Element, fromstring
 
-from requests import ReadTimeout, get
+from requests.api import get
+from requests.exceptions import ReadTimeout
 
 from .errors import AlmaAPIError
+
+
+class AlmaService:
+    """Base class for type hints."""
 
 
 class AlmaAPIBase:
     """Alma remote base service."""
 
-    def __init__(self, xpath_to_records: str, namespaces: str | None = None) -> None:
+    def __init__(self, xpath_to_records: str, namespaces: dict | None = None) -> None:
         """Create alma api base service."""
         self.xpath_to_records = xpath_to_records
         self.namespaces = namespaces if namespaces else {}
