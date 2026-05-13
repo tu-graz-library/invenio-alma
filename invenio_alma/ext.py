@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2021-2025 Graz University of Technology.
+# Copyright (C) 2021-2026 Graz University of Technology.
 #
 # invenio-alma is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -80,7 +80,8 @@ class InvenioAlma:
         """Initialize service."""
         api_key = app.config["ALMA_API_KEY"]
         api_host = app.config["ALMA_API_HOST"]
-        rest_config = AlmaRESTConfig(api_key, api_host)
+        rest_time_out = app.config["ALMA_REST_TIME_OUT"]
+        rest_config = AlmaRESTConfig(api_key, api_host, rest_time_out)
 
         domain = app.config["ALMA_SRU_DOMAIN"]
         institution_code = app.config["ALMA_SRU_INSTITUTION_CODE"]
