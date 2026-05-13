@@ -2,13 +2,12 @@
 #
 # This file is part of Invenio.
 #
-# Copyright (C) 2023-2024 Graz University of Technology.
+# Copyright (C) 2023-2026 Graz University of Technology.
 #
 # invenio-alma is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 """Alma API Resource."""
-
 
 from flask import abort
 from flask_resources import (
