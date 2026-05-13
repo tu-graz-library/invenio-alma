@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2022-2025 Graz University of Technology.
+# Copyright (C) 2022-2026 Graz University of Technology.
 #
 # invenio-alma is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
 
 """Alma REST Service."""
+
 from http import HTTPStatus
 from xml.etree.ElementTree import Element, tostring
 
@@ -60,9 +61,10 @@ class AlmaRESTUrls:
 class AlmaREST(AlmaAPIBase):
     """Alma REST service class."""
 
-    def __init__(self) -> None:
+    def __init__(self, timeout: int = 30) -> None:
         """Create object AlmaREST."""
         super().__init__(".//bib/record")
+        self.timeout = timeout
 
     def put(self, url: str, data: str) -> str:
         """Alma rest api put request.
@@ -75,7 +77,7 @@ class AlmaREST(AlmaAPIBase):
         :return str: response content
         """
         try:
-            response = put(url, data, headers=self.headers, timeout=30)
+            response = put(url, data, headers=self.headers, timeout=self.timeout)
         except ReadTimeout as exc:
             raise AlmaRESTError(code=500, msg="readtimeout") from exc
 
@@ -94,7 +96,7 @@ class AlmaREST(AlmaAPIBase):
         :return str: response content
         """
         try:
-            response = post(url, data, headers=self.headers, timeout=30)
+            response = post(url, data, headers=self.headers, timeout=self.timeou)
         except ReadTimeout as exc:
             raise AlmaRESTError(
                 code=HTTPStatus.INTERNAL_SERVER_ERROR,
@@ -119,7 +121,7 @@ class AlmaRESTService(AlmaService):
         """Create object from AlmaRESTService."""
         self.config = config
         self.urls = urls or AlmaRESTUrls(config)
-        self.service = service or AlmaREST()
+        self.service = service or AlmaREST(self.config.timeout)
 
     def get_record(self, mms_id: str) -> list[Element]:
         """Get Record from alma."""

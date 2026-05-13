@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2021-2025 Graz University of Technology.
+# Copyright (C) 2021-2026 Graz University of Technology.
 #
 # invenio-alma is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
@@ -29,6 +29,14 @@ ALMA_API_HOST: str = ""
 
 This value should be set on a place which is not under DVCS control.
 """
+
+ALMA_REST_TIME_OUT: str = "30"
+"""Alma rest time out.
+
+It is a string to make it easier to set it over environment variables.
+This has to be converted now explicitly.
+"""
+
 
 ALMA_REPOSITORY_RECORDS_IMPORT_FUNCS: dict[str, Callable[..., RecordItem]] = {}
 """Function to import a record from alma into the repository."""
