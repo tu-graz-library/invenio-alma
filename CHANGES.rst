@@ -1,11 +1,18 @@
 ..
-    Copyright (C) 2021-2025 Graz University of Technology.
+    Copyright (C) 2021-2026 Graz University of Technology.
 
     invenio-alma is free software; you can redistribute it and/or modify it
     under the terms of the MIT License; see LICENSE file for more details.
 
 Changes
 =======
+
+Version v0.14.0 (released 2026-06-12)
+
+- chore(black): update formatting to >= 26.0
+- chore(setup): increase python version
+- chore(ruff): fix FURB110
+- feat(rest): add timeout configuration
 
 Version v0.13.5 (released 2025-10-21)
 
