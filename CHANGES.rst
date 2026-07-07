@@ -7,6 +7,10 @@
 Changes
 =======
 
+Version v0.14.1 (released 2026-07-07)
+
+- fix(rest): typo in variable name
+
 Version v0.14.0 (released 2026-06-12)
 
 - chore(black): update formatting to >= 26.0
