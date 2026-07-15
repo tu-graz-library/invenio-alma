@@ -19,6 +19,7 @@ class AlmaRESTConfig:
     api_host: str = ""
     time_out: str = ""
 
+    @property
     def timeout(self) -> int:
         """Get timeout."""
         return int(self.time_out)
