@@ -5,6 +5,10 @@ SPDX-License-Identifier: MIT
 
 # Changes
 
+## Version v0.15.2 (released 2026-11-19)
+
+- chore(publish): migrate to trusted publisher
+
 ## Version v0.15.1 (released 2026-11-19)
 
 - fix(jobs): add default value for parameter
