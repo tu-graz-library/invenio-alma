@@ -5,6 +5,10 @@ SPDX-License-Identifier: MIT
 
 # Changes
 
+## Version v0.15.1 (released 2026-11-19)
+
+- fix(jobs): add default value for parameter
+
 ## Version v0.15.0 (released 2026-10-20)
 
 - chore(deps): remove unused dep
